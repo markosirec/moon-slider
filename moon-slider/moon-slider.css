@@ -1,0 +1,28 @@
+.moon-slider {  
+    /* prevent selection */
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    pointer-events: none; /* in case of overlapping sliders, ignore on clicks */
+}
+
+.moon-slider div {
+    position:relative;
+}
+
+.moon-slider .moon-slider-button {
+    position:absolute;
+    width: 27px;
+    height: 27px;
+    top: -3px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border: 1px solid #d2d1d3;
+    background: #f9f9fa;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f9f9fa), to(#e2e4e5)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #f9f9fa,  #e2e4e5); /* for firefox 3.6+ */
+    pointer-events: all; /* capture on click events */
+}
+
+

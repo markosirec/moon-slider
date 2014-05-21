@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Moon Slider demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="./index.css" />
+        <link rel="stylesheet" href="./moon-slider/moon-slider.css" />
+    </head>
+    <body>
+        
+        <div class="demo-holder">
+            
+            <div class="demo-container">
+                
+                <div class="left">
+
+                    <div class="legend" id="transportation-legend">
+                        <span class="value-title" id="transportation-value">$750</span>
+                        <span class="value-color"></span>
+                        <span class="value-description">Transportation</span>
+                    </div>
+
+                    <div class="legend" id="food-legend">
+                        <span class="value-title" id="food-value">$650</span>
+                        <span class="value-color"></span>
+                        <span class="value-description">Food</span>
+                    </div>
+
+                    <div class="legend" id="insurance-legend">
+                        <span class="value-title" id="insurance-value">$500</span>
+                        <span class="value-color"></span>
+                        <span class="value-description">Insurance</span>
+                    </div>
+
+                    <div class="legend" id="entertainment-legend">
+                        <span class="value-title" id="entertainment-value">$800</span>
+                        <span class="value-color"></span>
+                        <span class="value-description">Entertainment</span>
+                    </div>
+
+                    <div class="legend" id="health-care-legend">
+                        <span class="value-title" id="health-care-value">$250</span>
+                        <span class="value-color"></span>
+                        <span class="value-description">Health care</span>
+                    </div>
+
+                </div>
+
+                <div class="right">
+                    <div id="slider-holder" class="slider-holder">
+                        
+                        <div id="slider-transportation" class="slider"></div>
+                        <div id="slider-food" class="slider"></div>
+                        <div id="slider-insurance" class="slider"></div>
+                        <div id="slider-entertainment" class="slider"></div>
+                        <div id="slider-health-care" class="slider"></div>
+                        
+                    </div>
+                </div>
+                
+                <div class="clear"></div>
+                <div class="title">Moon Slider</div>
+                <div class="subtitle">
+                    A lightweight JavaScript plugin for circular inputs.<br>
+                    Works on touch devices (Android) and modern desktop browsers (Chrome, Firefox, Safari).
+                </div>
+                
+                <div class="download-button-holder">
+                    <a href="/" class="download-button">
+                        Download on Github
+                    </a>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="code-example">
+                    <div class="code-header">Usage:</div>
+                    <div class="code">
+                        
+                        <div class="indent1">
+                            var my_slider = generateMoonSlider(
+                        </div>
+                        <div class="indent2">
+                            <br>
+                            <div class="comment">
+                                // submit the id of the div that will hold the slider
+                            </div>
+                            "your-div-id",<br><br>
+                            <div class="comment">
+                                // optional - an object containing the option values
+                            </div>
+                            {
+                        </div>
+                        <div class="indent3">
+                                <div class="comment">// the minimum value</div>
+                                min_value: 0,<br><br>
+                                
+                                <div class="comment">// the maximum value</div>
+                                max_value: 1000,<br><br>
+                                
+                                <div class="comment">// the radius of the circle</div>
+                                radius: 167, <br><br>
+                                
+                                <div class="comment">// you can define the increment - default is 1</div>
+                                step: 10, <br><br>
+                                
+                                <div class="comment">// color of the line</div>
+                                color: "#7a4b8e", <br><br>
+                                
+                                <div class="comment">// start value - default is min_value</div>
+                                start_value: 750, <br><br>
+                                
+                                <div class="comment">// slider css classname</div>
+                                slider_classname: "moon-slider", <br><br>
+                                
+                                <div class="comment">// button css classname</div>
+                                button_classname: "moon-slider-button", <br><br>
+                                
+                                <div class="comment">// color of the underlying (grey) line</div>
+                                base_line_color: "#d8d8d8" <br><br>
+                        </div>
+                        <div class="indent2">
+                            },<br><br>
+                            <div class="comment">
+                                /* optional - an object containing event handlers<br> 
+                                (currently only the move handler is supported) */
+                            </div>
+                            {
+                        </div>
+                        <br>
+                        <div class="indent3">
+                                onMoveHandler: function(event) { <br>
+                                <div class="comment indent4">
+                                    /* the event object returned contains: <br>
+                                    <div class="indent5">id, (the id of corresponding the div)</div> 
+                                    <div class="indent5">deg, (current degrees of the slider)</div> 
+                                    <div class="indent5">value (current value)</div> */
+
+                                </div>
+                                }
+                        </div>
+                        <div class="indent2">
+                            }
+                        </div>
+                        ); <br><br><br>
+                        
+                        <div class="indent1 comment">
+                            /* <br>
+                            * <br>
+                            * API<br>
+                            * <br>
+                            */
+                        </div><br>
+                        <div class="indent1">
+                            <div class="comment">// set the value - the slider will automatically adjust</div>
+                            my_slider.setValue(100);
+                        </div><br><br>
+                        
+                        <div class="indent1">
+                            <div class="comment">/* set the degrees <br>the slider value will be calculated automatically */</div>
+                            my_slider.setDeg(90);
+                        </div><br><br>
+                        
+                        <div class="indent1">
+                            <div class="comment">// get the current value</div>
+                            var value = my_slider.getValue();
+                        </div><br><br>
+                        
+                        <div class="indent1">
+                            <div class="comment">// get the current degrees</div>
+                            var degrees = my_slider.getDeg();
+                        </div><br>
+                        
+                    </div>
+                </div>
+                
+                <div class="subtitle" style="margin-top: 40px;margin-bottom:100px;">
+                    Author:<br>Marko Širec (m.sirec@gmail.com)
+                </div>
+                
+            </div>
+
+        </div>
+
+
+        <script src="./moon-slider/moon-slider.js"></script>
+
+        <script>
+
+            (function() {
+                
+                var sliderMoveHandler = function(event) {
+                    var id = event.id.split("slider-");
+                    document.getElementById(id[1]+"-value").innerHTML = "$"+event.value;
+                }
+                
+                generateMoonSlider(
+                    "slider-transportation",
+                    {
+                        min_value: 0,
+                        max_value: 1000,
+                        radius: 167,
+                        color: "#7a4b8e",
+                        start_value: 750
+                    },
+                    {
+                        onMoveHandler: sliderMoveHandler
+                    }
+                );
+
+                generateMoonSlider(
+                    "slider-food",
+                    {
+                        min_value: 0,
+                        max_value: 1000,
+                        radius: 133,
+                        color: "#0092c6",
+                        start_value: 650
+                    },
+                    {
+                        onMoveHandler: sliderMoveHandler
+                    }
+                );
+                    
+                generateMoonSlider(
+                    "slider-insurance",
+                    {
+                        min_value: 0,
+                        max_value: 1000,
+                        step: 50,
+                        radius: 102,
+                        color: "#1ca332",
+                        start_value: 500
+                    },
+                    {
+                        onMoveHandler: sliderMoveHandler
+                    } 
+                );
+                    
+                generateMoonSlider(
+                    "slider-entertainment",
+                    {
+                        min_value: 0,
+                        max_value: 1000,
+                        radius: 71,
+                        color: "#f68a24",
+                        start_value: 800
+                    },
+                    {
+                        onMoveHandler: sliderMoveHandler
+                    } 
+                );
+                    
+                generateMoonSlider(
+                    "slider-health-care",
+                    {
+                        min_value: 0,
+                        max_value: 1000,
+                        radius: 37,
+                        step: 250,
+                        color: "#ff464a",
+                        start_value: 250
+                    },
+                    {
+                        onMoveHandler: sliderMoveHandler
+                    } 
+                );
+ 
+            })();
+
+            
+        </script>
+        
+    </body>
+</html>

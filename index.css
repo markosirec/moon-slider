@@ -1,0 +1,209 @@
+body { 
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    font-size: 12px;
+    color: #000;
+    background: #c9cbcd;
+}
+
+.demo-holder {
+    padding-top: 40px;
+    background: #efefef;
+    background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c9cbcd));
+    background: -moz-linear-gradient(top,  #efefef,  #c9cbcd);
+    height: 500px;
+}
+
+.demo-container {
+    width: 689px;
+    margin: auto;
+}
+
+.left {
+    float: left;
+    width: 250px;
+    padding-top: 40px;
+    padding-left: 10px;
+    /* prevent selection */
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+.right {
+    float: left;
+    width: 384px;
+}
+
+.slider-holder {
+    position: relative;
+    height: 370px;
+}
+
+.value-title {
+    color: #000;
+    font-size: 3.75em;
+    font-weight: bold;
+    display:inline-block;
+    width: 130px;
+}
+
+.value-color {
+    display: inline-block;
+    width: 15px;
+    height: 10px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.value-description {
+    font-size: 1em;
+}
+
+#transportation-legend .value-color {
+    background: #8a54a2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#8a54a2), to(#613b72)); 
+    background: -moz-linear-gradient(top,  #8a54a2,  #613b72);
+}
+
+#food-legend .value-color {
+    background: #00abe2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00abe2), to(#0077c0)); 
+    background: -moz-linear-gradient(top,  #00abe2,  #0077c0);
+}
+
+#insurance-legend .value-color {
+    background: #59c25a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#59c25a), to(#009f00)); 
+    background: -moz-linear-gradient(top,  #59c25a,  #009f00);
+}
+
+#entertainment-legend .value-color {
+    background: #ffa72e;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffa72e), to(#ff7717)); 
+    background: -moz-linear-gradient(top,  #ffa72e,  #ff7717);
+}
+
+#health-care-legend .value-color {
+    background: #ff6a77;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff6a77), to(#ff3133)); 
+    background: -moz-linear-gradient(top,  #ff6a77,  #ff3133);
+}
+
+
+
+.slider {
+    margin: auto;
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0;
+}
+
+#slider-transportation {
+    width: 356px;
+    height: 356px;
+}
+
+#slider-food {
+    width: 288px;
+    height: 288px;
+}
+
+#slider-insurance {
+    width: 226px;
+    height: 226px;
+}
+
+#slider-entertainment {
+    width: 164px;
+    height: 164px;
+}
+
+#slider-health-care {
+    width: 96px;
+    height: 96px;
+}
+
+
+.title {
+    font-size: 4em;
+    color: #7a4b8e;
+    border-bottom: 1px solid #7a4b8e;
+    margin-bottom: 18px;
+}
+
+.subtitle {
+    font-size: 1.4em;
+    color: #4e4e4e;
+    line-height: 1.5em;
+}
+
+.code-example {
+    margin: 20px;
+}
+
+.code-header {
+    color: #4e4e4e;
+    font-size: 1.4em;
+    margin-bottom: 8px;
+}
+
+.code {
+    width: 500px;
+    padding: 10px;
+    color: #ffffff;
+    font-weight:bold;
+    font-size: 1.2em;
+    font-family: "Courier New", Courier, monospace;
+    background-color: #373737;
+    border: 2px dotted #e4e4e4;
+}
+
+.code .indent1 {}
+.code .indent2 {margin-left: 15px;}
+.code .indent3 {margin-left: 30px;}
+.code .comment { color: #f6835b; }
+.code .indent4 {margin-left: 45px;}
+.code .indent5 {margin-left: 60px;}
+
+
+.download-button-holder {
+    margin-top: 20px;
+    margin-bottom:30px;
+}
+
+.download-button {
+    display:block;
+    float:left;
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-decoration: none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    
+    padding: 7px 15px 7px 15px;
+    background: #8a54a2;
+
+
+    background: -webkit-gradient(linear, left top, left bottom, from(#8a54a2), to(#613b72)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #8a54a2,  #613b72); /* for firefox 3.6+ */
+    border: 1px solid #613b72;
+}
+
+.download-button:hover {
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.clear {
+    clear: both;
+}
