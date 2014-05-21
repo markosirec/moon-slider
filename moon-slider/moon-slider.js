@@ -1,3 +1,32 @@
+// the polyfill fix for requestAnimationFrame, so it works on Android
+// by:
+// https://gist.github.com/paulirish/1579671
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+ 
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+ 
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
+
+
 var generateMoonSlider = function(id, opts, event_handlers) {
     
     // if no id is submited, abort
@@ -39,19 +68,31 @@ var generateMoonSlider = function(id, opts, event_handlers) {
             button,
             input,
             canvas,
-            canvas_offset,
             current_value = opts.start_value, // hold the current slider value
             current_deg = 0, // hold the current degrees
             range = opts.max_value - opts.min_value, // range
             first_quart = true, // var for the validation of max movement range
+            deg_step = range / 360, // how much is each degree worth
+            is_android, // for specific android fixes
+            
+            // graphics vars, stuff that never changes and should not be calculated on each draw
             stroke_width = 22,
-            //is_touch = "ontouchstart" in window, // mouse or fingers?
-            deg_step = range / 360; // how much is each degree worth
+            stroke_width2 = stroke_width / 2, // half of the stroke width, so we don'T have to calculate it on each draw'
+            xy = opts.radius + stroke_width2, // x and y coords of the circle,
+            pi_1_5 = 1.5 * Math.PI,
+            pi_2 = 2 * Math.PI;
+            
+            
+            var i = 0;
 
         var onMoveHandler = function(event) {}; 
 
         // constructor
         (function() {
+            
+            // find out if android, for certain canvas bug fixes
+            var agent = navigator.userAgent.toLowerCase();
+            is_android = agent.indexOf("android") > -1;
             
             // create the canvas, button, etc.
             initGraphics();
@@ -67,21 +108,21 @@ var generateMoonSlider = function(id, opts, event_handlers) {
                 drawLines();
             
             // add listeners
-            button.addEventListener("mousedown", function(event) {
+            button.addEventListener("mousedown", function() {
                 document.addEventListener("mousemove", moveListener);
             });
             
             // remove mousemove listener
-            document.addEventListener("mouseup", function(event) {
+            document.addEventListener("mouseup", function() {
                 document.removeEventListener("mousemove", moveListener);
             });
             
-            button.addEventListener("touchstart", function(event) {
+            button.addEventListener("touchstart", function() {
                 document.addEventListener("touchmove", moveListener);
             });
             
             // remove mousemove listener
-            document.addEventListener("touchend", function(event) {
+            document.addEventListener("touchend", function() {
                 document.removeEventListener("touchmove", moveListener);
             });
 
@@ -115,10 +156,7 @@ var generateMoonSlider = function(id, opts, event_handlers) {
             canvas.id = id+"-moon-canvas";
             canvas.width = opts.radius * 2 + stroke_width;
             canvas.height = opts.radius * 2 + stroke_width;
-            holder.appendChild(canvas);
-            
-            // get reference so we don't have to call the function every time
-            canvas_offset = canvas.getBoundingClientRect();
+            holder.appendChild(canvas); 
 
             // create hidden input
             input = document.createElement("input");
@@ -135,42 +173,52 @@ var generateMoonSlider = function(id, opts, event_handlers) {
         // this function draws 2 lines on the canvas
         function drawLines(rad) {
 
-            // if rad is undefined, start at the top
-            rad = (rad !== undefined ? rad : 1.5 * Math.PI);
+            // draw when the browser is ready via requestAnimationFrame
+            requestAnimationFrame(function() {
+                
+                // if rad is undefined, start at the top
+                rad = (rad !== undefined ? rad : pi_1_5);
 
-            var ctx = canvas.getContext("2d");
+                var ctx = canvas.getContext("2d");
 
-            // clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
+                // clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            var stroke_w2 = stroke_width / 2;
+                // android fix for clearing the rect
+                // https://medium.com/@dhashvir/ffcb939af758
+                if (is_android) {
+                    canvas.style.display = "none";// detach from DOM
+                    canvas.offsetHeight; // force the detach
+                    canvas.style.display = "inherit"; // Reattach to DOM 
+                }
 
-            var xy = opts.radius + stroke_w2;
-            ctx.arc(xy, xy, opts.radius, 0, 2 * Math.PI);
-            ctx.strokeStyle = opts.base_line_color;
-            ctx.lineWidth = stroke_width;
-            ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(xy, xy, opts.radius, 0, pi_2);
+                ctx.strokeStyle = opts.base_line_color;
+                ctx.lineWidth = stroke_width;
+                ctx.stroke();
 
-            ctx.beginPath();
-            ctx.arc(xy, xy, opts.radius, 1.5 * Math.PI, rad);
-            ctx.strokeStyle = opts.color;
-            ctx.lineWidth = stroke_width;
-            ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(xy, xy, opts.radius, pi_1_5, rad);
+                ctx.strokeStyle = opts.color;
+                ctx.lineWidth = stroke_width;
+                ctx.stroke();
+                
+            });
 
         }
 
 
         // catches mouse move events after click on button
         function moveListener(event) {
-
+  
             event.preventDefault();
 
             if (event.type == "touchmove") {
                 event.clientX = event.targetTouches[0].clientX;
                 event.clientY = event.targetTouches[0].clientY;
             }
-            
+
             coorToGraphics(event.clientX, event.clientY);
 
             return false;
@@ -180,6 +228,8 @@ var generateMoonSlider = function(id, opts, event_handlers) {
 
         // the main function for calculations - this is where the magic happens
         function coorToGraphics(coor_left, coor_top, deg, skip_step_check) {
+
+            var canvas_offset = canvas.getBoundingClientRect();
 
             var left = coor_left - canvas_offset.left;
             var top = coor_top - canvas_offset.top; 
@@ -301,6 +351,8 @@ var generateMoonSlider = function(id, opts, event_handlers) {
         // converts value to pos in space and degrees
         function valueToPos(value) {
             
+            var canvas_offset = canvas.getBoundingClientRect();
+            
             var v = value - opts.min_value;
             var deg = v / (opts.max_value - opts.min_value) * 360;
             var pos = calculatePosition(deg, canvas_offset.left, canvas_offset.top);
@@ -331,6 +383,7 @@ var generateMoonSlider = function(id, opts, event_handlers) {
             // set custom degrees
             setDeg: function(deg) {
 
+                var canvas_offset = canvas.getBoundingClientRect();
                 var pos = calculatePosition(deg, canvas_offset.left, canvas_offset.top);
                 coorToGraphics(pos.left, pos.top, deg);
 
