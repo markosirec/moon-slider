@@ -1,6 +1,5 @@
 // the polyfill fix for requestAnimationFrame, so it works on Android
-// by:
-// https://gist.github.com/paulirish/1579671
+// by: https://gist.github.com/paulirish/1579671
 (function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -31,7 +30,7 @@ var generateMoonSlider = function(id, opts, event_handlers) {
     
     // if no id is submited, abort
     if (id === undefined)
-        return;
+        return {};
     
     event_handlers = (event_handlers !== undefined ? event_handlers : {});
     opts = (opts !== undefined ? opts : {});
@@ -81,9 +80,6 @@ var generateMoonSlider = function(id, opts, event_handlers) {
             xy = opts.radius + stroke_width2, // x and y coords of the circle,
             pi_1_5 = 1.5 * Math.PI,
             pi_2 = 2 * Math.PI;
-            
-            
-            var i = 0;
 
         var onMoveHandler = function(event) {}; 
 
