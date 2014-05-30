@@ -334,7 +334,7 @@ var generateMoonSlider = function(id, opts, event_handlers) {
         function calculatePosition(deg, container_left, container_top) {
 
             var X = Math.round(opts.radius * Math.sin(deg * Math.PI / 180));    
-            var Y = Math.round(opts.radius *  -Math.cos(deg * Math.PI / 180));
+            var Y = Math.round(opts.radius * -Math.cos(deg * Math.PI / 180));
 
             return {
                 left: (X + opts.radius + container_left - 2),
